@@ -5,7 +5,6 @@ project(data_euroc)
 find_package(ament_cmake REQUIRED)
 
 if (EUROC_USE_BAG_FORMAT)
-
   set(Machine_Hall_01  http://robotics.ethz.ch/~asl-datasets/ijrr_euroc_mav_dataset/machine_hall/MH_01_easy/MH_01_easy.bag)
   set(Machine_Hall_02  http://robotics.ethz.ch/~asl-datasets/ijrr_euroc_mav_dataset/machine_hall/MH_02_easy/MH_02_easy.bag)
   set(Machine_Hall_03  http://robotics.ethz.ch/~asl-datasets/ijrr_euroc_mav_dataset/machine_hall/MH_03_medium/MH_03_medium.bag)
@@ -77,7 +76,11 @@ else()
     URL ${CAMERA_CALIBRATION}
     SOURCE_DIR ${CMAKE_CURRENT_BINARY_DIR}/${EUROC_DATASET}_calibration
   )
-FetchContent_MakeAvailable(${EUROC_DATASET} ${EUROC_DATASET}_calibration)
+  FetchContent_MakeAvailable(${EUROC_DATASET} ${EUROC_DATASET}_calibration)
+
+  install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${EUROC_DATASET}/ DESTINATION data/${PROJECT_NAME}/${EUROC_DATASET})
+
+  install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${EUROC_DATASET}_calibration/ DESTINATION data/${PROJECT_NAME}/${EUROC_DATASET}/calibration)
 
 endif()
 
